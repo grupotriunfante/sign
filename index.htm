@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assinatura de Documento</title>
+    <title>Assinatura de Documento - Política de Compliance</title>
     <style>
-        /* SEU CSS CONTINUA IGUAL, SEM MUDANÇAS */
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: 100%; max-width: 600px; }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; }
+        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: 100%; max-width: 800px; }
         h2 { text-align: center; color: #333; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
@@ -24,46 +23,90 @@
         .summary h3 { text-align: center; }
         .summary p { font-size: 16px; margin: 10px 0; }
         .summary img { display: block; margin: 20px auto; border: 1px solid #ddd; border-radius: 4px; }
+
+        /* Estilos para o container do PDF */
+        .pdf-container {
+            width: 100%;
+            height: 500px; /* Altura da janela do PDF */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px; /* Reduzi a margem para acomodar o novo texto */
+        }
+        .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #confirmation-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        #confirmation-section:hover { background-color: #dde3e8; }
+        #confirmation-section input { margin-right: 10px; }
+        #confirmation-section label { margin: 0; cursor: pointer; }
+
+        fieldset:disabled { opacity: 0.5; pointer-events: none; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 <body>
 
 <div class="container">
-    <div id="form-container">
-        <h2>Assinatura de Documento</h2>
-        <div class="form-group">
-            <p>Por favor, leia o documento no link a seguir antes de assinar: <a href="https://drivetriunfante.com.br/index.php?r=file%2Ffile%2Fdownload&guid=4c3ab701-7733-47c7-842e-80137a7aee62&hash_sha1=a68d19e0" target="_blank">Politica de Compliance. Versão 1</a></p>
+    <div id="main-content">
+        <h2>Assinatura da Política de Compliance</h2>
+        <p style="text-align: center;">Por favor, leia o documento abaixo e marque a caixa de confirmação para liberar o formulário de assinatura.</p>
+        
+        <div class="pdf-container">
+            <iframe src="https://drive.google.com/file/d/1NkxsEROOFO9kS_5l0d2pUdB6rpXy4KC9/preview" title="Política de Compliance"></iframe>
         </div>
-        <div class="form-group">
-            <label for="fullName">Nome Completo:</label>
-            <input type="text" id="fullName" name="fullName" required>
+
+        <p style="text-align: center; font-size: 14px; color: #555; margin-bottom: 20px;">
+            Para consultar esta política a qualquer momento, acesse o I-DOC: 
+            <a href="https://drivetriunfante.com.br/index.php?r=cfiles%2Fbrowse%2Findex&fid=447&cguid=68d7854e-1d10-4146-97cb-ae0abfc79350#" target="_blank" rel="noopener noreferrer">Clique aqui</a>.
+        </p>
+        <div id="confirmation-section">
+            <input type="checkbox" id="confirmation-checkbox">
+            <label for="confirmation-checkbox">Declaro que li e concordo com a Política de Compliance.</label>
         </div>
-        <div class="form-group">
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
-        </div>
-        <div class="form-group">
-            <label for="unidade">Unidade:</label>
-            <select id="unidade" name="unidade" required>
-                <option value="">Selecione a Unidade</option>
-                <option value="TPA">TPA</option><option value="TBA">TBA</option><option value="TCV">TCV</option><option value="ABC">ABC</option><option value="API">API</option><option value="TBL">TBL</option><option value="TSJ">TSJ</option><option value="TPH">TPH</option><option value="MCD">MCD</option><option value="TCG">TCG</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="birthDate">Data de Nascimento:</label>
-            <input type="text" id="birthDate" name="birthDate" placeholder="DD/MM/AAAA" required>
-        </div>
-        <div class="form-group">
-            <label for="signature">Campo para assinatura (livre):</label>
-            <div class="signature-pad-container">
-                <canvas id="signature-pad"></canvas>
+
+        <fieldset id="signature-fieldset">
+            <div class="form-group">
+                <label for="fullName">Nome Completo:</label>
+                <input type="text" id="fullName" name="fullName" required>
             </div>
-        </div>
-        <div class="buttons-container">
-            <button id="clear-signature">Limpar Assinatura</button>
-            <button id="submit-signature">Assinar e Enviar</button>
-        </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+            </div>
+            <div class="form-group">
+                <label for="unidade">Unidade:</label>
+                <select id="unidade" name="unidade" required>
+                    <option value="">Selecione a Unidade</option>
+                    <option value="TPA">TPA</option><option value="TBA">TBA</option><option value="TCV">TCV</option><option value="ABC">ABC</option><option value="API">API</option><option value="TBL">TBL</option><option value="TSJ">TSJ</option><option value="TPH">TPH</option><option value="MCD">MCD</option><option value="TCG">TCG</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="birthDate">Data de Nascimento:</label>
+                <input type="text" id="birthDate" name="birthDate" placeholder="DD/MM/AAAA" required>
+            </div>
+            <div class="form-group">
+                <label for="signature">Campo para assinatura (livre):</label>
+                <div class="signature-pad-container">
+                    <canvas id="signature-pad"></canvas>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button id="clear-signature">Limpar Assinatura</button>
+                <button id="submit-signature">Assinar e Enviar</button>
+            </div>
+        </fieldset>
     </div>
     
     <div id="summary-container" class="summary">
@@ -80,9 +123,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // ****** NENHUMA MUDANÇA NESTA PARTE INICIAL ******
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas);
+
         function resizeCanvas() {
             const ratio = Math.max(window.devicePixelRatio || 1, 1);
             canvas.width = canvas.offsetWidth * ratio;
@@ -92,16 +135,38 @@
         }
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
+
         const clearButton = document.getElementById('clear-signature');
         clearButton.addEventListener('click', (event) => {
             event.preventDefault();
             signaturePad.clear();
         });
 
-        // ****** A MÁGICA ACONTECE AQUI ******
+        // --- NOVA LÓGICA DE HABILITAÇÃO DO FORMULÁRIO ---
+        const confirmationCheckbox = document.getElementById('confirmation-checkbox');
+        const signatureFieldset = document.getElementById('signature-fieldset');
+
+        // Desabilita o formulário e o signature pad inicialmente
+        signatureFieldset.disabled = true;
+        signaturePad.off();
+
+        // Adiciona um evento que dispara quando a caixa de seleção é alterada
+        confirmationCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Se estiver marcada, habilita o formulário e a assinatura
+                signatureFieldset.disabled = false;
+                signaturePad.on();
+            } else {
+                // Se for desmarcada, desabilita tudo novamente
+                signatureFieldset.disabled = true;
+                signaturePad.off();
+            }
+        });
+        // --- FIM DA NOVA LÓGICA ---
+
+
+        // ****** SEU CÓDIGO DE ENVIO CONTINUA O MESMO ******
         const submitButton = document.getElementById('submit-signature');
-        
-        // Cole a URL do seu script publicado aqui
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwXNkae6flztT8pOeWue43YAE36pAPvyQrogTTBgPJectVVJdaN3yAe6JajgQu1c4Y/exec';
 
         submitButton.addEventListener('click', (event) => {
@@ -122,14 +187,11 @@
                 return;
             }
 
-            // Desabilita o botão e mostra uma mensagem de envio
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
 
-            // Pega a assinatura como uma imagem no formato Base64
             const signatureDataURL = signaturePad.toDataURL('image/png');
             
-            // Cria o objeto com os dados para enviar
             const formData = {
                 fullName: fullName,
                 cpf: cpf,
@@ -138,7 +200,6 @@
                 signature: signatureDataURL
             };
 
-            // Envia os dados para o Google Apps Script usando a API fetch
             fetch(scriptURL, {
                 method: 'POST',
                 body: JSON.stringify(formData),
@@ -146,25 +207,21 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    // Preenche o resumo com os dados
                     document.getElementById('summary-fullName').textContent = fullName;
                     document.getElementById('summary-cpf').textContent = cpf;
                     document.getElementById('summary-unidade').textContent = unidade;
                     document.getElementById('summary-birthDate').textContent = birthDate;
                     document.getElementById('summary-signature').src = signatureDataURL;
 
-                    // Esconde o formulário e mostra a tela de sucesso
-                    document.getElementById('form-container').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'none';
                     document.getElementById('summary-container').style.display = 'block';
                 } else {
-                    // Se der erro, mostra o erro e reativa o botão
                     alert('Ocorreu um erro ao enviar sua assinatura: ' + data.message);
                     submitButton.disabled = false;
                     submitButton.textContent = 'Assinar e Enviar';
                 }
             })
             .catch(error => {
-                // Se der um erro de rede, mostra o erro e reativa o botão
                 console.error('Erro:', error);
                 alert('Ocorreu um erro de conexão. Tente novamente.');
                 submitButton.disabled = false;
